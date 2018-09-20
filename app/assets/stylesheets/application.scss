@@ -1,0 +1,171 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+@import 'bootstrap';
+
+ body {
+ 	margin: 0;
+ 	padding: 0;
+ 	font-family: 'Rubik', sans-serif;
+ 	width: 100%;
+	height: 100vh;
+	background: url('background.jpg');
+	background-size: cover;
+	background-position: center;
+ }
+
+nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	padding: 10px 100px;
+	box-sizing: border-box;
+	transition: .3s;
+}
+
+nav.black {
+	background: rgba(0,0,0,0);
+	height: 100px;
+	padding: 10px 100px;
+}
+
+
+nav .logo {
+	padding: 22px 20px;
+	height: 80px;
+	float: left;
+	font-size: 24px;
+	transition: .3s;
+}
+
+nav.black .logo {
+	color: #fff;
+}
+
+nav ul {
+	list-style: none;
+	float: right;
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+
+nav ul li {
+	list-style: none;
+}
+
+nav ul li a {
+	line-height: 80px;
+	color: #151515;
+	padding: 12px 30px;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+nav.black ul li a {
+	color: #fff;
+}
+
+nav ul li a:focus {
+	outline: none;
+}
+
+nav ul li a.active {
+	background: #E2472F;
+	color: #fff;
+	border-radius: 6px;
+}
+
+section.sec1 {
+	
+}
+
+.modal-content {
+	padding: 32px;
+	border-radius: 0;
+	color: #484848;
+}
+
+.modal-body {
+	padding: 0;
+}
+
+#sign-up-fb-google {
+	text-align: center;
+	font-size: 14px;
+}
+
+.signup-form {
+	width: 100%;
+}
+
+.input-form {
+	width: 100%;
+	padding: 6px;
+}
+
+.signup-age {	
+	font-size: 14px;
+}
+
+#dob-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.select-item {
+	padding-left: 0 !important;
+}
+
+.select-button {
+	width: 100%;
+	height: 35px;
+}
+
+#have-id {
+	padding-top: 8px;
+    text-align: center;
+}
+
+.btn-container {
+	display: flex;
+    justify-content: space-around;
+}
+
+.btn-box {
+	width: 50%;
+	padding-left: 8px;
+    padding-right: 8px;
+}
+
+.btn-half {
+	width: 100%;
+}
+
+.btn {
+	font-size: 16px;
+}
+
+#login-continue {
+	font-size: 24px;
+}
+
+.center-text {
+	text-align: center;
+}
+
+#no-account {
+	font-size: 16px;
+}
