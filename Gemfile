@@ -69,4 +69,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "clearance"
 gem "figaro"
 gem 'bootstrap'
-
+gem 'omniauth-google-oauth2'
+gem 'faker'
+gem 'kaminari'
+gem 'carrierwave'
+gem 'momentjs-rails'
+gem 'bootstrap-daterangepicker-rails'
+gem 'braintree'

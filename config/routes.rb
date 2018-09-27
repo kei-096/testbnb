@@ -1,12 +1,22 @@
 Rails.application.routes.draw do
+
+  post 'reservations/:reservation_id/payment/new' => 'payment#checkout'
+
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
-  resource :session, controller: "clearance/sessions", only: [:create]
-  
-  post '/users' => 'users#create'
+  resource :session, controller: "sessions", only: [:create]
+
+  resources :listings do 
+    resources :reservations, only: [:new, :create, :index]
+  end
+  resources :welcome
+  resources :reservations do
+   resources :payment, only: [:new]
+ end
 
 
-
-  resources :users, controller: "clearance/users", only: [:create] do
+  resources :users, controller: "users", only: [:create, :index, :edit, :update] do
+    resources :reservations, controller: "reservations", only: [:index, :show]
+    resources :listings, controller: "listings", only: [:index, :show]
     resource :password,
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
@@ -21,6 +31,7 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  get '/users' => 'users#index'
+
+  get "/auth/:provider/callback" => "sessions#create_from_omniauth"
 
 end

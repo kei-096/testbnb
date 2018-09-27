@@ -12,16 +12,36 @@
 
   <body>
   <div class="wrapper">
-    <nav>
-      <div class="logo">LOGO</div>
+    <nav id="home-nav">
+      <div class="logo">
+        <a href="/">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/256px-Airbnb_Logo_B%C3%A9lo.svg.png">
+        </a>
+      </div>
+
       <ul>
-        <li><a href="#">Become a host</a></li>
+        <% if signed_in? %>
+        <li><%= link_to 'Become a host', new_listing_path %></li>
+        <li><%= link_to 'Trips', user_reservations_path(current_user.id) %></li>
         <li><a href="#">Earn Credit</a></li>
         <li><a href="#">Help</a></li>
+        <% else %>
         <li><a href="#" id="sign-up" data-toggle="modal" data-target="#sign-up-modal">Sign up</a></li>
+        <% end%>
 
         <% if signed_in? %>
-        <li><%= link_to 'Log out', sign_out_path, method: :delete%></li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= image_tag current_user.profile_photo.url.to_s, :id =>'profile-photo' %>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item"><%= link_to 'Edit profile', edit_user_path(current_user)%></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item"><%= link_to 'See listings', user_listings_path(current_user.id)%></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item"><%= link_to 'Log out', sign_out_path, method: :delete%></a></li>
+        </div>
+      </li>
         <% else %>
         <li><a class="active" href="#" data-toggle="modal" data-target="#login-modal-email">Log in</a></li>
         <% end %>
@@ -37,7 +57,7 @@
           </div>
           <section>
             <div id="sign-up-fb-google">
-              <p><strong>Sign up with Facebook or Google</strong></p>
+              <p><strong>Sign up with Facebook or <%= link_to "Google", "/auth/google_oauth2" %></strong></p>
               <hr>
               <p>or</p>
             </div>
@@ -166,12 +186,23 @@
               <div style="margin-bottom: 16px;">
                 <input type="password" name="session[password]" placeholder="Create a password" class="input-form">
               </div>
-              <!-- <div style="margin-bottom: 16px;">
-                <div>
-                  
-                </div>
-              </div> -->
               <button type="submit" class="btn btn-danger btn-lg btn-block" style="font-size: 16px;">Log in</button>
+              <hr>
+              <div class="center-text">
+                <p>Or continue with</p>
+              </div>
+              <div class="btn-container">
+                <div class="btn-box">
+                  <form action="#" method="POST">
+                    <button type="submit" class="btn btn-outline-secondary btn-lg btn-half">Facebook</button>
+                  </form>
+                </div>
+                <div class="btn-box">
+                  <form>
+                    <button type="submit" class="btn btn-outline-secondary btn-lg btn-half"><%= link_to "Google", "/auth/google_oauth2" %></button>
+                  </form>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -181,6 +212,12 @@
   </div>
     <%= yield %>
   </body>
+  <script type="text/javascript">
+    $(document).ready(function() {
+    $('input[class="daterange"]').daterangepicker();
+  });
+</script>
+
 </html>
 
 

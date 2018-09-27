@@ -1,0 +1,15 @@
+<div class="card-group">
+  <% @reservations.each do |r| %>
+  <% listing_id = r.listing_id %>
+  <% listing = Listing.find(listing_id) %>
+  <div class="card">
+    <%= image_tag listing.images_urls[0], :class => "card-img-top"%>
+    <div class="card-body">
+      <h5 class="card-title"><%= listing.location %></h5>
+      <p class="card-text"><%= r.start_date%> - <%= r.end_date%></p>
+      <p class="card-text">$ <%= r.price%></p>
+      <%= link_to 'Make Payment', new_reservation_payment_path(r.id) %>
+    </div>
+  </div>
+  <% end %>
+</div>

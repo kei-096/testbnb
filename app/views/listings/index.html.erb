@@ -1,0 +1,16 @@
+<div class="card-group">
+  <% @listings.each do |l| %>
+  <div class="card">
+    <%= image_tag l.images_urls[0], :class => "card-img-top"%>
+    <div class="card-body">
+      <h5 class="card-title"><%= l.location %></h5>
+        <div>
+          <p class="card-text">Accomodates: <%= l.guest %></p>
+        </div>
+        <div>
+          <p class="card-text">Room type: <%= l.room_type %></p>
+        </div>
+    </div>
+  </div>
+  <% end %>
+</div>

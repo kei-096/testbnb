@@ -17,6 +17,8 @@
 //= require jquery
 //= require popper
 //= require bootstrap
+//= require moment
+//= require daterangepicker
 
 // $(document).ready(function(){
 // 	$(window).on("load", function(){

@@ -10,13 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_19_035208) do
+ActiveRecord::Schema.define(version: 2018_09_27_015858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "authentications", force: :cascade do |t|
+    t.string "uid"
+    t.string "token"
+    t.string "provider"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_authentications_on_user_id"
+  end
+
   create_table "listings", force: :cascade do |t|
+    t.integer "user_id"
     t.string "name"
+    t.string "description"
+    t.string "location"
+    t.integer "guest"
+    t.string "room_type"
+    t.boolean "verification"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "images"
+    t.integer "price"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "listing_id"
+    t.integer "reservation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "listing_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,11 +64,19 @@ ActiveRecord::Schema.define(version: 2018_09_19_035208) do
     t.string "encrypted_password", limit: 128, null: false
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128, null: false
+    t.integer "gender"
+    t.string "country"
+    t.boolean "admin"
+    t.boolean "moderator"
+    t.boolean "customer"
+    t.string "role"
     t.string "first_name"
     t.string "last_name"
     t.date "birthday"
+    t.string "profile_photo"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "authentications", "users"
 end

@@ -11,28 +11,76 @@
  * It is generally better to create a new file per style scope.
  *
  */
+ 
+
 @import 'bootstrap';
+@import 'daterangepicker';
+@import 'payment';
 
  body {
- 	margin: 0;
+ 	margin-top: 116px;
  	padding: 0;
  	font-family: 'Rubik', sans-serif;
+ 	font-weight: 400;
+ 	color: #333;
  	width: 100%;
 	height: 100vh;
 	background: url('background.jpg');
 	background-size: cover;
 	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
  }
 
-nav {
+ p {
+ 	font-size: 16px;
+ 	margin: 0;
+ 	padding: 0;
+ }
+
+ a {
+ 	text-decoration: none;
+ 	margin: 0;
+ 	padding: 0;
+ }
+
+ h1, h2, h3, h4, h5, h6, ul, ol, li, {
+ 	margin: 0;
+ 	padding: 0;
+ }
+
+ ul, ol {
+ 	list-style-type: none;
+ }
+
+::selection {
+	color: #fff;
+	background-color: #333;
+}
+
+::-moz-selection {
+	color: #fff;
+	background-color: #333;
+}
+
+::clearfix::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#home-nav {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100px;
-	padding: 10px 100px;
+	height: auto;
+	padding: 10px 20px;
 	box-sizing: border-box;
 	transition: .3s;
+	border-bottom: 1px solid #ccc;
+	background-color: white;
+	z-index: 1000;
 }
 
 nav.black {
@@ -48,6 +96,10 @@ nav .logo {
 	float: left;
 	font-size: 24px;
 	transition: .3s;
+}
+
+.logo img {
+	width: 100px;
 }
 
 nav.black .logo {
@@ -169,3 +221,22 @@ section.sec1 {
 #no-account {
 	font-size: 16px;
 }
+
+#form-row {
+    justify-content: center;
+}
+
+.card {
+	display: inline-block;
+}
+
+.pagination-container {
+	display: flex;
+    justify-content: center;
+}
+
+#profile-photo {
+	width: 30px;
+    border-radius: 50%;
+}
+
