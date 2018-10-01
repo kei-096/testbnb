@@ -1,0 +1,20 @@
+<%= form_with(model: @reservation, local: true) do |form| %>
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+      <ul>
+      <% @reservation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.text_field :date, class: "daterange"%>
+    <%= hidden_field_tag :user_id, "#{current_user.id}" %>
+    <%= hidden_field_tag :listing_id, "#{@listing.id}" %>
+    <%= form.submit %>
+  </div>
+<% end %>

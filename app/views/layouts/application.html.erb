@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Airbnb</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+  </head>
+
+  <body>
+  <div class="wrapper">
+    <nav id="home-nav">
+      <div class="logo">
+        <a href="/">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/256px-Airbnb_Logo_B%C3%A9lo.svg.png">
+        </a>
+      </div>
+
+      <ul>
+        <% if signed_in? %>
+        <li><%= link_to 'Become a host', new_listing_path %></li>
+        <li><%= link_to 'Trips', user_reservations_path(current_user.id) %></li>
+        <li><a href="#">Earn Credit</a></li>
+        <li><a href="#">Help</a></li>
+        <% else %>
+        <li><a href="#" id="sign-up" data-toggle="modal" data-target="#sign-up-modal">Sign up</a></li>
+        <% end%>
+
+        <% if signed_in? %>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= image_tag current_user.profile_photo.url.to_s, :id =>'profile-photo' %>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item"><%= link_to 'Edit profile', edit_user_path(current_user)%></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item"><%= link_to 'See listings', user_listings_path(current_user.id)%></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item"><%= link_to 'Log out', sign_out_path, method: :delete%></a></li>
+        </div>
+      </li>
+        <% else %>
+        <li><a class="active" href="#" data-toggle="modal" data-target="#login-modal-email">Log in</a></li>
+        <% end %>
+      </ul>
+    </nav>
+
+    <!-- Modal for sign in -->
+    <div class="modal fade" id="sign-up-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div>
+            <button type="button" class="btn btn-default" data-dismiss="modal">X</button>
+          </div>
+          <section>
+            <div id="sign-up-fb-google">
+              <p><strong>Sign up with Facebook or <%= link_to "Google", "/auth/google_oauth2" %></strong></p>
+              <hr>
+              <p>or</p>
+            </div>
+          </section>
+          <div class="modal-body">
+            <form action="/users" method="POST">
+              <div class="signup-form">
+                <div>
+                  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+                  <input type="text" name="email" placeholder="Email address" class="input-form">
+                </div>
+                <br>
+                <div>
+                  <input type="text" name="first_name" placeholder="First name" class="input-form">
+                </div>
+                <br>
+                <div>
+                  <input type="text" name="last_name" placeholder="Last name" class="input-form">
+                </div>
+                <br>
+                <div style="margin-bottom: 16px;">
+                  <input type="password" name="password" placeholder="Create a password" class="input-form">
+                </div>
+              </div>
+
+
+              <p><strong>Birthday</strong></p>
+              <div class="signup-letters">
+                <p>To sign up, you must be 18 or older. Other people won’t see your birthday.</p>
+              </div>
+
+              <div id="dob-container">
+                <div class="col-5 select-item">
+                  <select name="month" class="select-button">
+                    <%= options_for_select([['January', 'January'], ['February', 'February'], ['March', 'March'], ['April', 'April'], ['May', 'May'], ['June', 'June'], ['July', 'July'], ['August', 'August'], ['September', 'September'], ['October', 'October'], ['November', 'November'], ['December', 'December']]) %> 
+                  </select>
+                </div>
+                
+                <div class="col-3 select-item">
+                  <select name="day" class="select-button" default="day">
+                    <%= options_for_select(["Day", *1..31], disabled: "Day")%>
+                  </select>
+                </div>
+                
+                <div class="col-4 select-item">
+                  <select name="year" class="select-button">
+                    <%= options_for_select(["Year", *1900..2000], disabled: "Year")%>
+                  </select>
+                </div>
+              </div>
+              <br>
+
+              <p class="signup-letters">We’ll send you marketing promotions, special offers, inspiration, and policy updates via email.</p>
+
+              <button type="submit" class="btn btn-danger btn-lg btn-block" style="font-size: 16px;">Sign up</button>
+            </form>
+            <hr>
+            <p id="have-id">Already have an Airbnb account? Log in</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for log in (fb main)-->
+    <!-- <div class="modal fade" id="login-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div>
+            <button type="button" class="btn btn-default" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body">
+            <div style="margin-bottom: 24px">
+              <h2 id="login-continue">Log in to continue</h2>
+            </div>
+            <div style="margin-bottom: 24px">
+              <form action="#" method="POST">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Log in with Facebook</button>
+              </form>
+              <hr>
+              <div class="center-text">
+                <p>Or continue with</p>
+              </div>
+              <div class="btn-container">
+                <div class="btn-box">
+                  <form action="#" method="POST">
+                    <button type="submit" class="btn btn-outline-secondary btn-lg btn-half" onclick="nextMod">Email Address</button>
+                  </form>
+                </div>
+                <div class="btn-box">
+                  <form>
+                    <button type="submit" class="btn btn-outline-secondary btn-lg btn-half">Google</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: 16px; margin-bottom: 16px;">
+              <hr/>
+            </div>
+            <div class="center-text">
+              <span id="no-account">Don’t have an account? <a href="#">Sign up</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Modal for log in (mail address) -->
+    <div class="modal fade" id="login-modal-email">
+      <div class="modal-dialog ">
+        <div class="modal-content">
+          <div>
+            <button type="button" class="btn btn-default" data-dismiss="modal">X</button>
+          </div>
+          <div class="modal-body">
+            <div style="margin-bottom: 24px">
+              <h2 id="login-continue">Log in to continue</h2>
+            </div>
+          </div>
+          <form action="/session" method="POST">
+            <div class="signup-form">
+              <div>
+                <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+                <input type="text" name="session[email]" placeholder="Email address" class="input-form">
+              </div>
+              <br>
+              <div style="margin-bottom: 16px;">
+                <input type="password" name="session[password]" placeholder="Create a password" class="input-form">
+              </div>
+              <button type="submit" class="btn btn-danger btn-lg btn-block" style="font-size: 16px;">Log in</button>
+              <hr>
+              <div class="center-text">
+                <p>Or continue with</p>
+              </div>
+              <div class="btn-container">
+                <div class="btn-box">
+                  <form action="#" method="POST">
+                    <button type="submit" class="btn btn-outline-secondary btn-lg btn-half">Facebook</button>
+                  </form>
+                </div>
+                <div class="btn-box">
+                  <form>
+                    <button type="submit" class="btn btn-outline-secondary btn-lg btn-half"><%= link_to "Google", "/auth/google_oauth2" %></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <section class="sec1"></section>
+  </div>
+    <%= yield %>
+  </body>
+  <script type="text/javascript">
+    $(document).ready(function() {
+    $('input[class="daterange"]').daterangepicker();
+  });
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+<div class="container">
+	<div class="row" style="justify-content: center;">
+		<div class="col-12" style="background-color: white; padding: 32px;">
+			<% @listings.each do |l| %>
+			<a href="/listings/<%= l.id %>">
+			<div class="card" style="width: 33%;">
+			  <div id="carouselExampleIndicators" class="carousel slide card-img-top" data-ride="carousel" data-interval="false">
+				  <ol class="carousel-indicators">
+				    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+				  </ol>
+				  <div class="carousel-inner">
+
+				  	<% l.images_urls.each_with_index do |img_url, index| %>
+					    <div class="carousel-item <%= index == 0 ? "active" : '' %>">
+					      <%= image_tag img_url, :class => 'd-block w-100'%>
+					    </div>
+				  	<% end %>
+
+				  </div>
+				  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+			  <div class="card-body">
+			    <div>
+					<p class="card-text">Location: <%= l.location%></p>
+				</div>
+				<div>
+					<p class="card-text">Accomodates: <%= l.guest %></p>
+				</div>
+				<div>
+					<p class="card-text">Room type: <%= l.room_type %></p>
+				</div>
+			   </div>
+			</div>
+			</a>
+			<% end %>
+		</div>
+	</div>
+</div>
