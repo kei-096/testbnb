@@ -7,8 +7,6 @@ class Reservation < ApplicationRecord
 	validates :start_date, presence: true
 	validates :end_date, presence: true
 
-	before_create :compute_total_price
-
 	def reserved?
 		existing_reservations = Reservation.where(listing_id: self.listing.id)
 

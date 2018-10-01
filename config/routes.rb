@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   post 'reservations/:reservation_id/payment/new' => 'payment#checkout'
 
+  post 'listings/search' => 'listings#search'
+
+  post 'listings/autocomplete' => 'listings#autocomplete'
+
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "sessions", only: [:create]
 

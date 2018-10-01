@@ -1,0 +1,7 @@
+$('#list').html();
+<% @locations.each do |location| %>
+	let option = document.createElement('option');
+	option.value = '<%= location %>'
+
+	$('#list').append(option);
+<% end %>
